@@ -1,0 +1,1495 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
+    background: linear-gradient(180deg, #6c72d7 0%, #b2b2eb 25%,#accff7 50%,#f8b5e4 75%,#fdcdef 100%);
+    color: #FFFFFF;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url('../assets/icon/星辰花.svg'), 
+        url('../assets/icon/雪花.svg'), 
+        url('../assets/icon/鱼.svg'), 
+        url('../assets/icon/羽毛.svg'), 
+        url('../assets/icon/苹果.svg');
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-position: 3% 15%, 97% 35%, 5% 65%, 95% 75%, 50% 88%;
+    background-size: 50px, 45px, 55px, 50px, 45px;
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: -1;
+    filter: contrast(1.2) saturate(1.3) brightness(1.1);
+    animation: floatBackground 8s ease-in-out infinite;
+} */
+
+@keyframes floatBackground {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-5px) rotate(1deg);
+    }
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+    75% {
+        transform: translateY(5px) rotate(-1deg);
+    }
+}
+
+@media (max-width: 768px) {
+    body::after {
+        background-position: 5% 12%, 95% 28%, 8% 55%, 92% 68%, 50% 82%;
+        background-size: 35px, 32px, 38px, 35px, 32px;
+        opacity: 0.2;
+        animation: floatBackgroundMobile 10s ease-in-out infinite;
+    }
+}
+
+@keyframes floatBackgroundMobile {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+.container {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 1.5rem;
+    position: relative;
+}
+
+#starCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+.screen-cover {
+    background-image: url('../assets/image/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.next-screen-btn {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background-image: url('../assets/image/莫比乌斯环.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    animation: pulse 1.5s ease-in-out infinite;
+    z-index: 10;
+    padding: 0 !important;
+    margin: 0 !important;
+    -moz-appearance: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+.next-screen-btn:focus,
+.next-screen-btn:active,
+.next-screen-btn:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    background-color: transparent !important;
+}
+.next-screen-btn:hover {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+@keyframes pulse {
+    0% {
+        opacity: 0.3;
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.2);
+    }
+    100% {
+        opacity: 0.3;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+.character-silhouette {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 400px;
+    height: 30vh;
+    min-height: 150px;
+    background-image: url('../assets/image/人物剪影.png');
+    background-size: contain;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    animation: slideUp 0.5s ease-out forwards;
+    opacity: 0;
+    transform: translateX(-50%) translateY(100%);
+    z-index: 1;
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+h1, h2, h3 {
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    color: #f1cfed;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: white;
+}
+
+h3 {
+    font-size: 16px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: white;
+}
+
+p {
+    color: #FFFFFF;
+    font-size: 1rem;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.intro-text {
+    text-align: center;
+    line-height: 1.5;
+}
+
+.intro-text1 {
+    font-size: 14px;
+    text-indent: 2em;
+    text-align: justify;
+    background: rgba(118, 83, 242, 0.5);
+    border-left: 3px solid #7653f2;
+    padding: 12px 16px;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    color: #1a1a2e;
+    font-weight: 500;
+    backdrop-filter: blur(4px);
+}
+
+.highlight-gold {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.highlight-red {
+    color: #eb0e0e;
+    font-weight: bold;
+}
+
+.slide-fly {
+    position: relative;
+    animation: slideInFromLeft 3s ease-out forwards;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.chart {
+    width: 100%;
+    height: 300px;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 1s ease, box-shadow 1s ease;
+    position: relative;
+    
+}
+.chart.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+.chart-hint {
+    text-align: right;
+    font-size: 12px;
+    color: #1a1a2e;
+    opacity: 0.7;
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    margin: 0;
+}
+.stat-item {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.image-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.stat-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.tmall-image-container {
+    position: relative;
+    width: 120px;
+    height: 120px; 
+    margin: 0 auto 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: height;
+}
+.tmall-image-container.expanded {
+    height: 350px; /* 显示完整图片 */
+}
+.tmall-stat-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+.tmall-image-overlay {
+    position: absolute;
+    top: 80%;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+}
+.tmall-image-container.expanded .tmall-image-overlay {
+    opacity: 0;
+    transform: translateY(100%);
+}
+.tmall-image-overlay::after {
+    content: '点击查看完整图片';
+}
+.expandable-image {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.expandable-image:hover {
+    transform: scale(1.05);
+}
+.image-details {
+    width: 150px;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+}
+.image-details.expanded {
+    max-height: 300px;
+    padding: 1rem;
+}
+.details-content {
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    text-indent: 2em;
+    text-align: justify;
+}
+.details-content p {
+    color: #FFFFFF;
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    text-indent: 2em;
+    text-align: justify;
+}
+
+.stat-label {
+    display: block;
+    color: #000000;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #888888;
+    font-size: 1.2rem;
+    animation: bounce 2s infinite;
+}
+
+.arrow {
+    display: inline-block;
+    margin-left: 0.8rem;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+.comment-area {margin-top: 2rem;}
+.comment-area textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid #000000;
+    border-radius: 8px;
+    color: #000000;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    margin-bottom: 1rem;
+}
+
+.comment-area textarea::placeholder {color: #888888;}
+.comment-area button {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #B8A9FF, #FF9A9E);
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.comment-area button:hover {transform: translateY(-2px);}
+
+.insight {
+    text-align: center;
+    font-weight: 600;
+    color: #B8A9FF;
+    margin-top: 1rem;
+}
+
+.cover-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    margin-bottom: 2rem;
+}
+
+.cover-intro {
+    text-align: center;
+    font-size: 1rem;
+    color: #FFFFFF;
+}
+
+/* 总结性文字样式 */
+.summary-text {
+    color: #111111;
+    text-shadow: 1px 1px  1px #f7f7f7a2;
+    text-align: left;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 1.5s ease-out;
+    text-indent: 2em;
+}
+.summary-text.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@keyframes fadeInFromLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 女性剪影图片样式 */
+.silhouette-container {
+    position: relative;
+    width: 120px;
+    height: auto;
+    margin: 1rem auto;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.silhouette-container.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.female-silhouette {
+    width: 100%;
+    height: auto;
+}
+
+/* 第三屏和第四屏紧凑布局 */
+.screen-age .content,
+.screen-identity .content {
+    padding: 0.5rem 0;
+}
+.screen-age h2,
+.screen-identity h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+/* 调大第三屏和第四屏图表高度 */
+.screen-age .chart,
+.screen-identity .chart {
+    margin: 1rem 0;
+    height: 350px;
+}
+
+/* 第六屏消费偏好图表布局 */
+.screen-preference .chart {
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 345px;
+    display: block;
+}
+
+/* 词云图弹窗样式 */
+.quote-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 30%;
+    width: 100%;
+    height: 100%;
+}
+
+.quote-modal-content {
+    position: relative;
+    background: linear-gradient(135deg, #6c72d7, #ababdc, #f1cfed);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.quote-modal.show .quote-modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.quote-close {
+    color: #1a1a2e;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.quote-close:hover {
+    color: #ffffff;
+}
+
+.quote-word {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1a1a2e;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.quote-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1a1a2e;
+    text-align: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+/* 第八屏词云图布局 */
+.screen-wordcloud .chart {
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    height: 400px;
+}
+    
+    .word-container {
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    /* 词云数据统计区域样式 */
+    .wordcloud-stats {
+        margin: 1rem auto;
+        max-width: 345px;
+    }
+
+    .word-container {
+        display: flex;
+        justify-content: space-around;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+
+    .word-item {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .word-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .word-dot.positive {
+        background: linear-gradient(135deg, #ff9a9e, #ff6b91);
+    }
+
+    .word-dot.negative {
+        background: linear-gradient(135deg, #27ea62, #4ade80);
+    }
+
+    .word-dot.neutral {
+        background: linear-gradient(135deg, #38caf2, #2196f3);
+    }
+
+    .word-label {
+        color: #111111;
+        font-size: 14px;
+    }
+
+
+/* 象形条形图样式 */
+.screen-icon-bar .chart {
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 800px;
+    display: block;
+}
+
+.icon-bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.icon-bar-year {
+    width: 60px;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 1rem;
+    text-align: right;
+    margin-right: 1rem;
+}
+
+.icon-bar-icons {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.icon-wrapper:hover {
+    transform: scale(1.1);
+}
+
+.icon-bar-percent {
+    width: 60px;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 1rem;
+    text-align: left;
+    margin-left: 1rem;
+}
+/* 移动端适配（以375*667为基准） */
+@media (max-width: 768px) {
+    .screen {
+        min-height: 100vh;
+        padding: 0 15px;
+    }
+    
+    /* 第三屏和第四屏移动端紧凑布局 */
+    .screen-age .content,
+    .screen-identity .content {
+        padding: 0 0;
+    }
+    
+    .screen-age h2,
+    .screen-identity h2 {
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+        font-size: 1.3rem;
+    }
+    
+    .screen-age .chart,
+    .screen-identity .chart {
+        margin: 1rem 0;
+        height: 350px;
+    }
+/* 第七屏移动端样式 */
+    .screen-motivation .chart {
+        margin: 1rem auto;
+        height: 250px;
+        width: 100%;
+        max-width: 345px;
+        display: block;
+    }
+    
+/* 第八屏词云图移动端样式 */
+    .screen-wordcloud .chart {
+        margin: 1rem auto;
+        height: 300px;
+        width: 100%;
+        max-width: 345px;
+        display: block;
+    }
+    
+    .word-container {
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    /* 词云数据统计区域样式 */
+    .wordcloud-stats {
+        margin: 1rem auto;
+        max-width: 345px;
+    }
+
+    .word-container {
+        display: flex;
+        justify-content: space-around;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+
+    .word-item {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .word-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .word-dot.positive {
+        background: linear-gradient(135deg, #ff9a9e, #ff6b91);
+    }
+
+    .word-dot.negative {
+        background: linear-gradient(135deg, #27ea62, #4ade80);
+    }
+
+    .word-dot.neutral {
+        background: linear-gradient(135deg, #38caf2, #2196f3);
+    }
+        
+
+
+/* 抽卡模拟器样式 */
+.game-container {       
+    margin: 2rem auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+.game-info {
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-count,
+.game-timer {   
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stats-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    align-items: center;
+}
+
+.stats-label {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.stats-value {
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.card-display {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    min-height: 150px;
+}
+
+.game-card {
+    width: 120px;
+    height: 160px;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin: 0.5rem 0;
+}
+
+.game-card.card-enter {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.game-card.card-rare {
+    animation: rareCardGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes rareCardGlow {
+    from {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+    to {
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+    }
+}
+
+.card-stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.card-star {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.card-content {
+    text-align: center;
+}
+
+.card-rarity {
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-character {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.card-name {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.game-btn {
+    background: linear-gradient(135deg, #ff9a9e, #ff6b91);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255, 107, 145, 0.3);
+}
+
+.game-guarantee {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.guarantee-text {
+    color: #181818;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    background: rgb(255, 159, 179);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid rgb(252, 222, 235);
+}
+
+.game-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 107, 145, 0.4);
+}
+
+.game-btn:active {
+    transform: translateY(0);
+}
+
+.game-btn.game-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-icon {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+.btn-text {
+    font-weight: bold;
+}
+
+/* 象形条形图移动端样式 */
+    .screen-icon-bar .chart {
+        margin: 1.5rem auto;
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+    
+    .icon-bar-row {
+        margin-bottom: 1rem;
+        padding: 0.3rem;
+    }
+    
+    .icon-bar-year {
+        width: 50px;
+        font-size: 0.9rem;
+        margin-right: 0.5rem;
+    }
+    
+    .icon-bar-icons {
+        gap: 4px;
+    }
+    
+    .icon-wrapper {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    
+    .icon-bar-percent {
+        width: 50px;
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+    }
+    
+    .content {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    
+    p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    .chart {
+        height: 250px;
+        margin: 1rem 0;
+    }
+    
+    .stats-grid {
+        gap: 1rem;
+        grid-template-columns: 1fr;
+        margin: 1rem 0;
+    }
+    
+    .stat-item {
+        padding: 1rem;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .stat-label {
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+    
+    .image-container {
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    .tmall-image-container {
+        width: 120px;
+        height: 150px; 
+        transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: height;
+    }
+    
+    .tmall-image-container.expanded {
+        height: 380px;
+    }
+    
+    .image-details {
+        width: 160px;
+    }
+    
+    .details-content {
+        font-size: 0.8rem;
+        line-height: 1.8;
+        text-indent: 2em;
+        text-align: justify;
+    }
+    
+    .details-content p {
+        font-size: 0.75rem;
+        color: #FFFFFF;
+        text-indent: 2em;
+        text-align: justify;
+    }
+    
+    .comment-area textarea {
+        font-size: 0.9rem;
+        min-height: 100px;
+    }
+    
+    .comment-area button {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+    
+    /* 抽卡模拟器移动端样式 */
+    .game-container {
+        margin: 0.5rem auto;
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+    
+    .game-intro {
+        padding: 0.5rem 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .game-intro-title {
+        margin-bottom: 0.3rem;
+    }
+    
+    .game-intro-text {
+        font-size: 11px;
+        line-height: 1.4;
+        margin-bottom: 0.3rem;
+    }
+    
+    .game-intro-hint {
+        font-size: 10px;
+    }
+    
+    .game-stats {   
+        gap: 0.5rem;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stats-label {
+        font-size: 0.75rem;
+    }
+    
+    .stats-value {
+        font-size: 0.9rem;
+    }
+    
+    .stats-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .card-display {
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        min-height: 100px;
+    }
+    
+    .game-card {            
+        width: 85px;
+        height: 120px;
+        padding: 0.5rem;
+    }
+    
+    .card-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .card-star {
+        font-size: 12px;
+    }
+    
+    .card-rarity {
+        font-size: 8px;
+    }
+    
+    .card-character {
+        font-size: 10px;
+    }
+    
+    .card-name {
+        font-size: 8px;
+    }
+    
+    .game-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .btn-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .game-guarantee {
+        margin-top: 0.5rem;
+    }
+    
+    .guarantee-text {
+        font-size: 9px;
+    }
+
+}
+
+/* 抽卡模拟器引导说明样式 */
+.game-intro {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    border-radius: 16px;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.game-intro-title {
+    color: #FFD700;
+}
+
+.game-intro-text {
+    color: #1a1a2e;
+    font-size: 12px;
+    line-height: 1.5;
+    text-indent: 2em;
+    text-shadow: none;
+}
+
+.game-intro-hint {
+    color: #e40606;
+    font-size: 11px;
+    text-shadow: none;
+}
+
+/* 屏10：弹幕墙样式 */
+.barrage-container {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    overflow: hidden;
+    padding-top: 5px;
+}
+
+/* 4行弹幕容器 */
+.barrage {
+    position: absolute;
+    white-space: nowrap;
+    font-size: 14px;
+    animation-name: barrageMove;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 15s; /* 统一速度 */
+}
+
+/* 第1行弹幕 */
+.barrage:nth-child(1) {
+    top: 20px;
+    animation-delay: 0s;
+}
+
+/* 第2行弹幕 */
+.barrage:nth-child(2) {
+    top: 60px;
+    animation-delay: 5s;
+}
+
+/* 第3行弹幕 */
+.barrage:nth-child(3) {
+    top: 100px;
+    animation-delay: 3s;
+}
+
+/* 第4行弹幕 */
+.barrage:nth-child(4) {
+    top: 140px;
+    animation-delay: 7s;
+}
+
+/* 每个弹幕容器内的span元素 */
+.barrage span {
+    display: inline-block;
+    margin-right: 20px; /* 弹幕之间的间距 */
+    white-space: nowrap;
+    background-color: #fcf8b2f7;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid #fdf8ca;
+    opacity: 0.8;
+}
+
+/* 弹幕颜色 */
+.barrage1 { color: #901cf5; }
+.barrage2 { color: #d20505; }
+.barrage3 { color: #ffa115; }
+.barrage4 { color: #2c9c15; }
+.barrage5 { color: #2580e8; }
+.barrage6 { color: #f54597; }
+
+@keyframes barrageMove {
+    0% {
+        transform: translateX(100vw);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* 翻牌卡片样式 */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 1rem 2rem;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    width: 100%;
+    height: 80px;
+    aspect-ratio: 1;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* 默认状态（翻牌前） */
+.card-front {
+    background-color: white;
+    color: black;
+    border: 2px solid #ffffff;
+}
+
+.card-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+}
+
+/* 点击状态（翻牌后） */
+.card-back {
+    transform: rotateY(180deg);
+}
+
+/* 卡片1：矛盾心理 */
+.card[data-card="1"] .card-back {
+    background-color: #db8cff;
+    color: white;
+}
+/* 卡片2：情绪价值 */
+.card[data-card="2"] .card-back {
+    background-color: #fb6a90;
+    color: white;
+}
+/* 卡片3：虚实之间 */
+.card[data-card="3"] .card-back {
+    background-color: #ffa115;
+    color: white;
+}
+/* 卡片4：爱的标价 */
+.card[data-card="4"] .card-back {
+    background-color: #2b90fc;
+    color: white;
+}
+
+.card-desc {
+    font-size: 11px;
+    margin-top: 3px;
+    opacity: 0.9;
+    padding: 0 6px;
+    color: white;
+    text-shadow: none;
+    text-align: center;
+    width: 100%;
+}
+
+.card-back h3 {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .barrage {
+        font-size: 12px;
+    }
+    
+    .card-info {
+        text-align: center;
+    }
+    
+    .card-character {
+        font-size: 12px;
+    }
+    
+    .card-icon {
+        width: 35px;
+        height: 35px;
+        margin: 0.4rem 0;
+    }
+    
+    .game-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        gap: 0.4rem;
+    }
+    
+    .btn-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .game-guarantee {
+        margin-top: 0.8rem;
+    }
+    
+    .guarantee-text {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+
+
+/* 评论输入框样式 */
+.comment-input {
+    color: black;
+}

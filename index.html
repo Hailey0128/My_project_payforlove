@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>为爱买单｜恋与深空女性玩家符号消费图鉴</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- 引入ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <!-- ECharts Wordcloud 插件 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.1.0/dist/echarts-wordcloud.min.js"></script>
+    <!-- 引入GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 屏1：封面页 -->
+        <section class="screen screen-cover">
+            <canvas id="starCanvas"></canvas>
+            <div class="content">
+                <h1>PAY FOR LOVE</h1>
+                <h1>为爱买单</h1>
+                <p class="cover-subtitle">《恋与深空》女性玩家的符号消费图鉴</p>
+                <p class="cover-intro">一张卡牌价值多少？<br>纸片人为何让无数女性着迷？</p>
+            </div>
+            <button title="点击切换" class="next-screen-btn" id="nextScreenBtn"></button>
+            <div class="character-silhouette"></div>
+        </section>
+        <!-- 屏2：现象引入 -->
+        <section class="screen screen-intro">
+            <div class="content">
+                <h2>她们为何一掷<span class="highlight-gold">千金</span>？</h2>
+                <p class="intro-text">2024年《恋与深空》上线即破圈，<br>成为现象级女性向手游。<br>无数女性玩家为纸片人们投入真金白银。<br>她们在消费什么？<br>为何而买？</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="image-container">
+                            <img class="stat-image" src="../assets/image/登顶9th微博.png" alt="登顶9th微博"></img>
+                        </div>
+                        <span class="stat-label">多次登顶App Store畅销<span class="highlight-red">榜一</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="tmall-image-container">
+                            <img class="tmall-stat-image" id="tmallImage" src="../assets/image/天猫双十一榜单完整.jpg" alt="天猫双十一榜单完整"></img>
+                            <div class="tmall-image-overlay"></div>
+                        </div>
+                        <span class="stat-label">天猫双11玩具潮玩销售<span class="highlight-red">榜一</span></span>
+                        <div class="image-details" id="tmallDetails">
+                            <div class="details-content">
+                                <p>叠纸心意为《恋与深空》官方周边售卖店铺,在2025年天猫双11期间登上玩具潮玩销售榜榜一,销售额突破千万,打败泡泡玛特、miHoYo、JELLYCAT等知名潮玩店铺。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        <!-- 屏3：玩家年龄分布 -->
+        <section class="screen screen-age">
+            <div class="content">
+                <h2>谁在买单？</h2>
+                <h3>年龄分布</h3>
+                <div class="chart" id="age-chart"></div>
+                <div class="chart-hint">点击图表查看详细数据解读</div>
+                <div class="silhouette-container">
+                    <img src="../assets/icon/女性.svg" alt="女性剪影" class="female-silhouette">
+                </div>
+            </div>
+        </section>
+        <!-- 屏4：玩家身份分布 -->
+        <section class="screen screen-identity">
+            <div class="content">
+                <h3>身份分布</h3>
+                <div class="chart" id="identity-chart"></div>
+                <div class="chart-hint">点击图表查看详细数据解读</div>
+                <p class="summary-text">玩家以18至29岁的年轻女性为主，占比接近九成。
+                    <br>其中，学生群体是符号消费最活跃的先锋力量。职场女性经济独立，消费更稳定，使市场更加成熟。</p>
+                <p class="summary-text">年轻女性成为游戏消费的主力军，她们对虚拟情感的投入正在重塑游戏产业格局。</p>
+            </div>
+        </section>
+        <!-- 屏5：消费金和游戏时长-->
+        <section class="screen screen-amount">
+            <div class="content">
+                <h2>消费者投入多少？</h2>
+                <div class="intro-text1 slide-fly">
+                    消费者在游戏过程中，为纸片人们投入了大量的金钱和时间。学生党常省吃俭用从生活费中攒下钱用来游戏氪金和吃谷，而职场人经济更独立，付费更随心，为情绪价值买单。</div>
+                <div class="chart" id="amount-chart"></div>
+                <div class="chart-hint">点击图表查看详细数据解读</div>
+                <p class="summary-text">游玩时间小于三个月的玩家大多消费在499元以下，而游玩1年以上的玩家，近四成消费超过5000元。</p>
+                <p class="summary-text">总体来看，游戏时间越长，消费总金额越高。</p>
+        </section>
+        <!-- 屏6：消费偏好 -->
+         <section class="screen screen-preference" id="screen-preference">
+            <div class="content">
+                <h2>消费什么？氪金？吃谷？</h2>
+                <div id="in-game-chart" class="chart"></div>
+                <div class="chart-hint">点击图表查看详细数据解读</div>
+                <div id="out-game-chart" class="chart"></div>
+                <div class="chart-hint">点击图表查看详细数据解读</div>
+                <p class="summary-text animate">虚拟抽卡（限定卡池权重2.56）是游戏内的核心消费内容，是情感符号的核心载体；而游戏外的消费是情感符号向现实的延伸——
+                    <strong>符号消费已超出物品使用价值的范围，转变为以获取情感、建立身份认同为中心的符号实践。</strong>。</p>
+        </div>
+        </section>
+        <!-- 屏7：消费动机 -->
+        <section class="screen screen-motivation">
+            <div class="content">
+                <h2>消费者为何而买？</h2>
+                <div class="chart" id="motivation-chart"></div>
+                <div class="chart-hint">点击图表查看详细数据解读</div> 
+                <p class="summary-text">数据显示，情感性动因是最强烈的，显著高于社会性动因和游戏性动因。</p>
+                <p class="summary-text">游戏角色形象与剧情互动高度贴合玩家对理想伴侣的想象，抽到角色卡牌时会产生“被角色偏爱”的独特联结，这是消费最核心的驱动力。现实生活中感到孤独、压力大或情绪低落时，玩家通过消费能获得情绪慰藉与陪伴，明显改善心情。</p>
+                <p class="summary-text">对角色卡牌收集、游戏资源获取的追求，形成了稳定持续的消费行为。社会性动因的作用相对较弱，玩家虽会因他人分享而“被种草”，但消费可能受到社群氛围裹挟，从悦己异化为自证的攀比，带来焦虑、后悔等负面情绪。</p>
+            </div>
+        </section>
+
+        <!-- 屏8：玩家心声 -->
+         <section class="screen screen-wordcloud" id="screen-wordcloud">
+            <div class="content">
+                <h2>消费者怎么说？</h2>
+                <!-- 词云数据统计区域 -->
+                <div class="wordcloud-stats">
+                    <h3>情感词汇统计</h3>
+                    <div class="word-container">
+                        <div class="word-item">
+                            <span class="word-dot positive"></span>
+                            <span class="word-label">正向词 26</span>
+                        </div>
+                        <div class="word-item">
+                            <span class="word-dot negative"></span>
+                            <span class="word-label">负向词 5</span>
+                        </div>
+                        <div class="word-item">
+                            <span class="word-dot neutral"></span>
+                            <span class="word-label">中性词 15</span>
+                        </div>
+                    </div>
+                </div> 
+                <p>从玩家访谈和问卷留言中提取的高频词汇</p>
+                <div id="wordcloud-chart" class="chart"></div>   
+                <div class="chart-hint">点击图表查看详细数据解读</div>  
+                <div id="quote-modal" class="quote-modal">
+                    <div class="quote-modal-content">
+                        <span class="quote-close">&times;</span>
+                        <div class="quote-word"></div>
+                        <div class="quote-content"></div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <p class="summary-text">“周边”、“喜欢”、“爱”、“开心”、“情绪价值”等正向词汇占据绝对数量优势，说明玩家消费的核心驱动力是获取情感慰藉与陪伴感——
+                        <strong>她们在虚拟关系中寻找被坚定选择的确定感，通过购买周边将这份情感连接进现实生活。</strong></p>
+                    <p class="summary-text">与此同时，“压力”、“后悔”、“焦虑”等负向词汇，揭示了符号消费的另一面：小额高频的付费机制削弱了玩家对金钱的敏感度，社群中的攀比氛围则可能让消费从“悦己”异化为“自证”。</p>
+                    <p class="summary-text">而“现实”、“社区”、“金钱”等中性高频词，则折射出玩家始终在虚拟游戏与真实生活之间有着清醒的认知——
+                        <strong>她们并非沉溺幻想，而是在游戏中被治愈后，带着这份力量回归现实。</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 屏9：抽卡模拟 -->
+        <section class="screen screen-experiment">
+            <div class="content">
+                <h2 class="game-intro-title">🎮 情景模拟：体验抽卡小游戏</h2>
+                <div class="game-container">
+                    <div class="game-intro">
+                        <p class="game-intro-text">
+                            前面提到“限定”、“保底”、“错失恐惧”如何驱动消费，现在，请你亲自体验。
+                            你只有50秒，10次机会，点击开始抽卡，倒计时则开始。看看你需要几次机会抽出五星卡呢？
+                            这是玩家都经历过的真实游戏消费情境。
+                        </p>
+                        <p class="game-intro-hint">👇 点击下方按钮，感受抽卡的刺激！</p>
+                    </div>
+                    <!-- 抽卡状态显示 -->
+                    <div class="game-stats">
+                        <img src="../assets/icon/沙漏.svg" alt="沙漏" class="stats-icon">
+                        <div class="game-count">                          
+                            <span class="stats-label">剩余次数：</span>
+                            <span class="stats-value" id="game-remaining">10</span>
+                        </div>
+                        <div class="game-timer">
+                            <span class="stats-label">倒计时：</span>
+                            <span class="stats-value" id="game-timer">50</span><span class="stats-label">秒</span>
+                        </div>
+                    </div>
+                    <!-- 卡片展示区域 -->
+                    <div class="card-display" id="card-display"></div>
+                    <!-- 抽卡按钮 -->
+                    <button id="game-btn" class="game-btn">
+                        <span class="btn-text">开始抽卡</span>
+                        <img src="../assets/icon/星星.svg" alt="星星" class="btn-icon">
+                    </button>
+                    
+                    <!-- 保底标注 -->
+                    <div class="game-guarantee">
+                        <span class="guarantee-text">💎 保底机制：每50抽必出五星卡（基础概率5%）</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 屏10：消费反思 -->
+        <section class="screen screen-reflection">
+            <div class="content">
+                <h2>消费者的自我反思</h2>
+                <!-- 弹幕墙 -->
+                <div class="barrage-container" id="barrage-container">
+                    <!-- 预定义弹幕元素 -->
+                    <div class="barrage">
+                        <span class="barrage1">虽然有时候会后悔花太多钱氪金和买周边，但是拿到想要的东西真的很开心！</span>
+                        <span class="barrage2">拒绝吃谷焦虑！花钱多不等于爱得深！</span>
+                        <span class="barrage3">蓝绿修改器，启动！</span>
+                    </div>
+                    <div class="barrage">
+                        <span class="barrage6">就是情绪消费，有时候生活压力也很大，我觉得花钱买快乐没什么。</span>
+                        <span class="barrage5">我能区分现实和游戏，游戏里的男主让我觉得我值得被爱，但他只是我的一个情绪避难所。</span>
+                        <span class="barrage2">你的真心能贴上价格标签吗？我觉得不能。</span>
+                    </div>
+                    <div class="barrage">
+                        <span class="barrage4">抽卡抽到大保底时，那种空虚感和罪恶感特别真实，感觉氪金的钱都白花了。</span>
+                        <span class="barrage6">从运输周边的快递发货，我就开始期待开心了，感觉生活都更有盼头了。</span>
+                        <span class="barrage3">玄学抽卡，我开始理解了。</span>
+                    </div>
+                    <div class="barrage">
+                        <span class="barrage1">每次周边上新都忍不住买一堆，随便加了点到购物车，一看金额好几百了。</span>
+                        <span class="barrage5">玩了恋与深空之后，感觉眼光更高了，更不想接触现实中的男生了。</span>
+                        <span class="barrage4">社区的一些氛围，有些人很喜欢攀比，让我感到莫名其妙。</span>
+                    </div>
+                </div>  
+                <p class="card-info">点击下方数字卡片，查看总结词语！</p>
+                <div class="cards">
+                    <div class="card" data-card="1">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <span class="card-number">1</span>
+                            </div>
+                            <div class="card-back">
+                                <h3>矛盾心理</h3>
+                                <p class="card-desc">在花钱买快乐与花钱后的罪恶感之间反复横跳。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" data-card="2">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <span class="card-number">2</span>
+                            </div>
+                            <div class="card-back">
+                                <h3>情绪价值</h3>
+                                <p class="card-desc">孤独时获得陪伴，压力时找到出口。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" data-card="3">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <span class="card-number">3</span>
+                            </div>
+                            <div class="card-back">
+                                <h3>亲密关系</h3>
+                                <p class="card-desc">角色拉高情感期待，但让人看清真正渴望的亲密关系。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" data-card="4">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <span class="card-number">4</span>
+                            </div>
+                            <div class="card-back">
+                                <h3>爱的标价</h3>
+                                <p class="card-desc">爱是多元表达，攀比消费只会让“悦己”沦为“自证”。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="summary-text">尽管多数玩家表示会理性消费，但也存在被游戏厂商的营销手段诱导消费产生后悔焦虑等负面情绪。
+                    <br>总体上，多数玩家认为这种消费带来的情绪价值是值得的。因此如何在享受游戏的同时保持理性消费，成为玩家面临的重要课题。</p>
+            </div>
+        </section>
+
+        <!-- 屏11：结语 -->
+        <section class="screen screen-conclusion">
+            <div class="content">
+                <h2>为爱买单，但不为爱迷失</h2>
+                <p class="summary-text">250份问卷，6位玩家的真实讲述，数以万计的氪金记录——这些数字背后，是一个个鲜活的女性。她们在游戏中练习爱与被爱，在虚拟角色的注视下确认“我值得被温柔对待”。
+                   她们不是“人傻钱多”，而是用金钱为理想中的亲密关系投出的选票。她们清醒地知道，完美人设不存在于现实；她们诚实地承认，被坚定选择的感觉，是理想中爱情的模样。</p>
+                <p class="summary-text">“为爱买单”从来不是问题。在享受虚拟世界带来的情感满足时，也要多关注现实生活中的情感连接。理性消费，享受游戏，才是健康的游戏态度。</p>
+                <p class="summary-text">愿你在为爱付费之后，仍然拥有感知真实温度的能力。愿你的每一次消费，都是出于喜欢，而不是恐惧错过。</p>
+                <p class="summary-text">现在，你怎么看待为纸片人花钱这件事呢？欢迎在下方留言区分享你的想法！</p>
+                <div class="comment-area">
+                    <textarea placeholder="分享你的想法..." class="comment-input"></textarea>
+                    <button>提交留言</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/data.js"></script>
+    <script src="../js/wordcloud.js"></script>
+    <script src="../js/playgame.js"></script>
+    <script src="../js/chart.js"></script>
+    <script src="../js/main.js"></script>
+    
+</body>
+</html>
